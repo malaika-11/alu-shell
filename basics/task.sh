@@ -35,3 +35,32 @@ chmod +x 9-firstdirdeletion
 # Task 10 - go back to previous directory
 echo -e "#!/bin/bash\ncd -" > 10-back
 chmod +x 10-back
+
+# Task 11 - lists in current, parent, /boot
+echo -e '#!/bin/bash\nls -la .\nls -la ..\nls -la /boot' > 11-lists
+chmod +x 11-lists
+
+# Task 12 - file type
+echo -e '#!/bin/bash\nfile /tmp/iamafile' > 12-file_type
+chmod +x 12-file_type
+
+# Task 13 - symbolic link to /bin/ls
+echo -e '#!/bin/bash\nln -s /bin/ls __ls__' > 13-symbolic_link
+chmod +x 13-symbolic_link
+
+# Task 14 - copy HTML files to parent if newer
+echo -e '#!/bin/bash\ncp -u *.html ../' > 14-copy_html
+chmod +x 14-copy_html
+
+# Task 15 - move uppercase files to /tmp/u
+echo -e '#!/bin/bash\nmv [A-Z]* /tmp/u' > 15-lets_move
+chmod +x 15-lets_move
+
+# Task 16 - delete all Emacs backup files ending with ~
+echo -e '#!/bin/bash\nrm -f *~' > 16-clean_emacs
+chmod +x 16-clean_emacs
+
+# Task 17 - create welcome/to/school directory tree
+echo -e '#!/bin/bash\nmkdir -p welcome/to/school' > 17-tree
+chmod +x 17-tree
+
