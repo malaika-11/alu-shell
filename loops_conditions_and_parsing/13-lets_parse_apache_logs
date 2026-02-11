@@ -1,0 +1,11 @@
+/usr/bin/env bash
+
+file="apache-access.log"
+
+if [ ! -f "$file" ]
+then
+    echo "File not found!"
+    exit 1
+fi
+
+awk '{print $1, $9}' "$file"
