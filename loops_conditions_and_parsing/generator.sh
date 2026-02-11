@@ -159,9 +159,15 @@ EOF
 cat > 14-dig_the-data << 'EOF'
 #!/usr/bin/env bash
 #Comment
-awk '{print $1, $9}' apache-access.log | \
-awk '{count[$1" "$2]++} END {for (i in count) print count[i], i}' | \
-sort -rn
+file="apache-access.log"
+
+if [ ! -f "$file" ]; then
+    echo "Error: $file not found!"
+    exit 1
+fi
+
+# Remove carriage returns, count occurrences, sort
+awk '{gsub("\r",""); count[$1" "$9]++} END {for (k in count) print count[k], k}' "$file" | sort -rn
 EOF
 
 
