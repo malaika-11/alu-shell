@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#Comment
 file="school"
 if [ -e "$file" ]
 then

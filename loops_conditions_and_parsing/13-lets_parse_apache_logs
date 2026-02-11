@@ -1,5 +1,5 @@
-/usr/bin/env bash
-
+#!/usr/bin/env bash
+#Comment
 file="apache-access.log"
 
 if [ ! -f "$file" ]

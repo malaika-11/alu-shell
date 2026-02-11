@@ -3,6 +3,7 @@
 # 5-4_bad_luck_8_is_your_chance
 cat > 5-4_bad_luck_8_is_your_chance << 'EOF'
 #!/usr/bin/env bash
+#Comment
 count=1
 while [ $count -le 10 ]
 do
@@ -23,6 +24,7 @@ EOF
 # 6-superstitious_numbers
 cat > 6-superstitious_numbers << 'EOF'
 #!/usr/bin/env bash
+#Comment
 count=1
 while [ $count -le 20 ]
 do
@@ -40,6 +42,7 @@ EOF
 # 7-clock
 cat > 7-clock << 'EOF'
 #!/usr/bin/env bash
+#Comment
 hour=0
 while [ $hour -le 12 ]
 do
@@ -58,6 +61,7 @@ EOF
 # 8-for_ls
 cat > 8-for_ls << 'EOF'
 #!/usr/bin/env bash
+#Comment
 for file in *
 do
     echo "$file" | cut -d '-' -f 2-
@@ -68,6 +72,7 @@ EOF
 # 9-to_file_or_not_to_file
 cat > 9-to_file_or_not_to_file << 'EOF'
 #!/usr/bin/env bash
+#Comment
 file="school"
 if [ -e "$file" ]
 then
@@ -91,6 +96,7 @@ EOF
 # 10-fizzbuzz
 cat > 10-fizzbuzz << 'EOF'
 #!/usr/bin/env bash
+#Comment
 count=1
 while [ $count -le 100 ]
 do
@@ -114,7 +120,7 @@ EOF
 # 11-read_and_cut
 cat > 11-read_and_cut << 'EOF'
 #!/usr/bin/env bash
-
+#Comment
 while IFS=: read -r username _ uid _ _ home _
 do
     echo "$username:$uid:$home"
@@ -125,6 +131,7 @@ EOF
 # 12-tell_the_story_of_passwd
 cat > 12-tell_the_story_of_passwd << 'EOF'
 #!/usr/bin/env bash
+#Comment
 while IFS=: read -r username password uid gid info home shell
 do
     echo "The user $username is part of the $gid gang, lives in $home and rides $shell. $uid's place is protected by the passcode $password, more info about the user here: $info"
@@ -134,8 +141,8 @@ EOF
 
 # 13-lets_parse_apache_logs
 cat > 13-lets_parse_apache_logs << 'EOF'
-/usr/bin/env bash
-
+#!/usr/bin/env bash
+#Comment
 file="apache-access.log"
 
 if [ ! -f "$file" ]
@@ -151,6 +158,7 @@ EOF
 # 14-dig_the-data
 cat > 14-dig_the-data << 'EOF'
 #!/usr/bin/env bash
+#Comment
 awk '{print $1, $9}' apache-access.log | \
 awk '{count[$1" "$2]++} END {for (i in count) print count[i], i}' | \
 sort -rn
