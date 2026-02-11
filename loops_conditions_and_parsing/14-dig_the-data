@@ -1,11 +1,4 @@
 #!/usr/bin/env bash
-#Comment
-file="apache-access.log"
+# 14-dig_the-data
 
-if [ ! -f "$file" ]; then
-    echo "Error: $file not found!"
-    exit 1
-fi
-
-# Remove carriage returns, count occurrences, sort
-awk '{gsub("\r",""); count[$1" "$9]++} END {for (k in count) print count[k], k}' "$file" | sort -rn
+awk '{count[$1" "$9]++} END {for (key in count) printf "%7d %s\n", count[key], key}' apache-access.log | sort -nr
