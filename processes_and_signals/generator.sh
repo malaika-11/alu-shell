@@ -6,6 +6,7 @@
 # 0-what-is-my-pid
 cat << 'EOF' > 0-what-is-my-pid
 #!/usr/bin/env bash
+#showing pid
 echo $$
 EOF
 chmod +x 0-what-is-my-pid
@@ -13,6 +14,7 @@ chmod +x 0-what-is-my-pid
 # 1-list_your_processes
 cat << 'EOF' > 1-list_your_processes
 #!/usr/bin/env bash
+#comment
 ps auxf
 EOF
 chmod +x 1-list_your_processes
@@ -28,6 +30,7 @@ chmod +x 2-show_your_bash_pid
 # 3-show_your_bash_pid_made_easy
 cat << 'EOF' > 3-show_your_bash_pid_made_easy
 #!/usr/bin/env bash
+#comment
 for pid in $(ls /proc | grep '^[0-9]*$'); do
     if [ -f "/proc/$pid/comm" ]; then
         name=$(cat "/proc/$pid/comm")
@@ -42,6 +45,7 @@ chmod +x 3-show_your_bash_pid_made_easy
 # 4-to_infinity_and_beyond
 cat << 'EOF' > 4-to_infinity_and_beyond
 #!/usr/bin/env bash
+#comment
 while true; do
     echo "To infinity and beyond"
     sleep 2
@@ -52,6 +56,7 @@ chmod +x 4-to_infinity_and_beyond
 # 5-dont_stop_me_now
 cat << 'EOF' > 5-dont_stop_me_now
 #!/usr/bin/env bash
+#comment
 pkill -f 4-to_infinity_and_beyond
 EOF
 chmod +x 5-dont_stop_me_now
@@ -59,6 +64,7 @@ chmod +x 5-dont_stop_me_now
 # 6-stop_me_if_you_can
 cat << 'EOF' > 6-stop_me_if_you_can
 #!/usr/bin/env bash
+#comment
 for pid in $(pgrep -f 4-to_infinity_and_beyond); do
     echo "Stopping PID $pid via /proc"
     echo 1 > "/proc/$pid/oom_score_adj" 2>/dev/null
@@ -69,6 +75,7 @@ chmod +x 6-stop_me_if_you_can
 # 7-highlander
 cat << 'EOF' > 7-highlander
 #!/usr/bin/env bash
+#comment
 trap 'echo "I am invincible!!!"' SIGTERM
 while true; do
     echo "To infinity and beyond"
@@ -80,6 +87,7 @@ chmod +x 7-highlander
 # 8-beheaded_process
 cat << 'EOF' > 8-beheaded_process
 #!/usr/bin/env bash
+#comment
 pkill -f 7-highlander
 EOF
 chmod +x 8-beheaded_process
@@ -87,6 +95,7 @@ chmod +x 8-beheaded_process
 # 10-process_and_pid_file
 cat << 'EOF' > 10-process_and_pid_file
 #!/usr/bin/env bash
+#comment
 PIDFILE="/var/run/myscript.pid"
 echo $$ | sudo tee "$PIDFILE" > /dev/null
 
@@ -104,6 +113,7 @@ chmod +x 10-process_and_pid_file
 # 11-manage_my_process
 cat << 'EOF' > 11-manage_my_process
 #!/usr/bin/env bash
+#comment
 PIDFILE="/var/run/my_process.pid"
 
 case "$1" in

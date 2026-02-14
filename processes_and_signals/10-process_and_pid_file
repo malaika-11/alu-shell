@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#comment
 PIDFILE="/var/run/myscript.pid"
 echo $$ | sudo tee "$PIDFILE" > /dev/null
 
