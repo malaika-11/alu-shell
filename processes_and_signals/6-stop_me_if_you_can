@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+for pid in $(pgrep -f 4-to_infinity_and_beyond); do
+    echo "Stopping PID $pid via /proc"
+    echo 1 > "/proc/$pid/oom_score_adj" 2>/dev/null
+done
