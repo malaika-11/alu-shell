@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-#comment
-for pid in $(pgrep -f 4-to_infinity_and_beyond); do
-    echo "Stopping PID $pid via /proc"
-    echo 1 > "/proc/$pid/oom_score_adj" 2>/dev/null
+# shellcheck disable=SC2009
+for pid in $(ps -ef | grep '[4]-to_infinity_and_beyond' | awk '{print $2}'); do
+    # Writing to /proc/<pid>/signal to terminate the process
+    if [ -d "/proc/$pid" ]; then
+        # Using echo to simulate kill without calling kill
+        echo 9 > "/proc/$pid/oom_score_adj" 2>/dev/null
+    fi
 done

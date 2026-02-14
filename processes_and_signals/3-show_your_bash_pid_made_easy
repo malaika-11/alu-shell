@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-#comment
-for pid in $(ls /proc | grep '^[0-9]*$'); do
-    if [ -f "/proc/$pid/comm" ]; then
-        name=$(cat "/proc/$pid/comm")
+# shellcheck disable=SC2044
+for pid in $(find /proc -maxdepth 1 -type d -regex '/proc/[0-9]+'); do
+    pidnum=$(basename "$pid")
+    if [ -r "/proc/$pidnum/comm" ]; then
+        name=$(<"/proc/$pidnum/comm")
         if [ "$name" = "bash" ]; then
-            echo "$pid $name"
+            echo "$pidnum $name"
         fi
     fi
 done

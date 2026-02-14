@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
-#comment
-pkill -f 7-highlander
+# shellcheck disable=SC2009
+
+# Find all processes containing '7-highlander' (excluding the grep process itself)
+for pid in $(ps -ef | grep '[7]-highlander' | awk '{print $2}'); do
+    # Kill each PID
+    kill "$pid"
+done

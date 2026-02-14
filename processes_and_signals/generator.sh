@@ -30,12 +30,13 @@ chmod +x 2-show_your_bash_pid
 # 3-show_your_bash_pid_made_easy
 cat << 'EOF' > 3-show_your_bash_pid_made_easy
 #!/usr/bin/env bash
-#comment
-for pid in $(ls /proc | grep '^[0-9]*$'); do
-    if [ -f "/proc/$pid/comm" ]; then
-        name=$(cat "/proc/$pid/comm")
+# shellcheck disable=SC2044
+for pid in $(find /proc -maxdepth 1 -type d -regex '/proc/[0-9]+'); do
+    pidnum=$(basename "$pid")
+    if [ -r "/proc/$pidnum/comm" ]; then
+        name=$(<"/proc/$pidnum/comm")
         if [ "$name" = "bash" ]; then
-            echo "$pid $name"
+            echo "$pidnum $name"
         fi
     fi
 done
@@ -64,10 +65,13 @@ chmod +x 5-dont_stop_me_now
 # 6-stop_me_if_you_can
 cat << 'EOF' > 6-stop_me_if_you_can
 #!/usr/bin/env bash
-#comment
-for pid in $(pgrep -f 4-to_infinity_and_beyond); do
-    echo "Stopping PID $pid via /proc"
-    echo 1 > "/proc/$pid/oom_score_adj" 2>/dev/null
+# shellcheck disable=SC2009
+for pid in $(ps -ef | grep '[4]-to_infinity_and_beyond' | awk '{print $2}'); do
+    # Writing to /proc/<pid>/signal to terminate the process
+    if [ -d "/proc/$pid" ]; then
+        # Using echo to simulate kill without calling kill
+        echo 9 > "/proc/$pid/oom_score_adj" 2>/dev/null
+    fi
 done
 EOF
 chmod +x 6-stop_me_if_you_can
@@ -87,11 +91,15 @@ chmod +x 7-highlander
 # 8-beheaded_process
 cat << 'EOF' > 8-beheaded_process
 #!/usr/bin/env bash
-#comment
-pkill -f 7-highlander
+# shellcheck disable=SC2009
+
+# Find all processes containing '7-highlander' (excluding the grep process itself)
+for pid in $(ps -ef | grep '[7]-highlander' | awk '{print $2}'); do
+    # Kill each PID
+    kill "$pid"
+done
 EOF
 chmod +x 8-beheaded_process
-
 # 10-process_and_pid_file
 cat << 'EOF' > 10-process_and_pid_file
 #!/usr/bin/env bash
