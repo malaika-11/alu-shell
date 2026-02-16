@@ -1,9 +1,3 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC2009
-for pid in $(ps -ef | grep '[4]-to_infinity_and_beyond' | awk '{print $2}'); do
-    # Writing to /proc/<pid>/signal to terminate the process
-    if [ -d "/proc/$pid" ]; then
-        # Using echo to simulate kill without calling kill
-        echo 9 > "/proc/$pid/oom_score_adj" 2>/dev/null
-    fi
-done
+# This script stops 4-to_infinity_and_beyond process without using kill or killall
+pkill -f 4-to_infinity_and_beyond

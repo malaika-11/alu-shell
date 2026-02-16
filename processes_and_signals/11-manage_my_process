@@ -1,30 +1,47 @@
 #!/usr/bin/env bash
-#comment
-PIDFILE="/var/run/my_process.pid"
+# This script manages the manage_my_process daemon
+
+PID_FILE="/var/run/my_process.pid"
+
+start() {
+  ./manage_my_process &
+  echo $! > "$PID_FILE"
+  echo "manage_my_process started"
+}
+
+stop() {
+  if [ -f "$PID_FILE" ]; then
+    kill "$(cat "$PID_FILE")"
+    rm "$PID_FILE"
+    echo "manage_my_process stopped"
+  fi
+}
+
+restart() {
+  # Silent stop
+  if [ -f "$PID_FILE" ]; then
+    kill "$(cat "$PID_FILE")"
+    rm "$PID_FILE"
+  fi
+  # Silent start
+  ./manage_my_process &
+  echo $! > "$PID_FILE"
+  # Only print restart message
+  echo "manage_my_process restarted"
+}
 
 case "$1" in
-    start)
-        ./manage_my_process &
-        echo $! > "$PIDFILE"
-        echo "manage_my_process started"
-        ;;
-    stop)
-        if [ -f "$PIDFILE" ]; then
-            kill "$(cat "$PIDFILE")"
-            rm -f "$PIDFILE"
-        fi
-        echo "manage_my_process stopped"
-        ;;
-    restart)
-        if [ -f "$PIDFILE" ]; then
-            kill "$(cat "$PIDFILE")"
-            rm -f "$PIDFILE"
-        fi
-        ./manage_my_process &
-        echo $! > "$PIDFILE"
-        echo "manage_my_process restarted"
-        ;;
-    *)
-        echo "Usage: $0 {start|stop|restart}"
-        ;;
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    restart
+    ;;
+  *)
+    echo "Usage: manage_my_process {start|stop|restart}"
+    exit 1
+    ;;
 esac
